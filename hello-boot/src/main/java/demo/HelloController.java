@@ -1,19 +1,32 @@
 package demo;
 
+import java.util.Map;
+
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
 
-@RestController
+@Controller
 public class HelloController {
 
-	@Autowired
-	HelloProperties props;
-	
-	@RequestMapping("/hello")
-	public String hello(@RequestParam String name) {
-		return props.getGreeting()+name;
+	private String message = "Hello World";
 
+	@RequestMapping(value = "/")
+	String home() {
+		return "home";
+	}
+
+
+	
+	@RequestMapping("/jsp")
+	public String welcome(Map<String, Object> model) {
+		model.put("message", this.message);
+		return "welcome";
+	}
+	
+	@RequestMapping("/hello2")
+	public String hello(@RequestParam String name) {
+	//	return props.getGreeting()+name;
+		return "myView";
 	}
 }
